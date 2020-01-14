@@ -1,8 +1,12 @@
 package pl.springboot.crud.services;
 
+import java.util.List;
+
+import pl.springboot.crud.DTO.UserDTO;
 import pl.springboot.crud.model.User;
 
 
 public interface UserService {
-	User save(User newUser);
+	User save(UserDTO newUser);
+	List<User> findAll();
 }

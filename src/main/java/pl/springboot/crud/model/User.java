@@ -11,43 +11,52 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 @Entity
-public class User implements UserDetails {
-	private static final long serialVersionUID = 2573518839982191361L;
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+public class User implements UserDetails{
+	private static final long serialVersionUID = -8617048898959511159L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
+	@NotEmpty
+	private String userName;
 	@NotEmpty
 	private String email;
 	@NotEmpty
 	private String password;
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "USER_ROLES", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
-	private Set<UserRoles> roles;
+	private Set<UserRole> role;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return roles;
-	}
-	@Override
-	public String getUsername() {
-		return email;
+		return role;
 	}
 	@Override
 	public String getPassword() {
 		return password;
+	}
+	@Override
+	public String getUsername() {
+		return userName;
 	}
 	@Override
 	public boolean isAccountNonExpired() {
@@ -65,6 +74,4 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		return Boolean.TRUE;
 	}
-	
-	
 }
