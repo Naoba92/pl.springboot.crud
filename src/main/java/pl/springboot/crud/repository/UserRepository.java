@@ -1,13 +1,10 @@
 package pl.springboot.crud.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import pl.springboot.crud.model.User;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
-	@Query("SELECT u from QuizUser u LEFT JOIN FETCH u.roles where u.email = :email")
-	User findByEmailFetchRoles(@Param("email") String email);
 }
