@@ -21,12 +21,12 @@
 			<div th:replace="fragments/_header :: _header"></div>
 
 
-			<div sec:authorize="hasRole('ADMIN')" style="padding-top: 10%">This
+			<div sec:authorize="hasAuthority('admin_role')" style="padding-top: 10%">This
 				content is only shown to administrators.</div>
 
-			<div sec:authorize="hasRole('USER')" style="padding-top: 10%">This
+			<div sec:authorize="hasAuthority('user_role')" style="padding-top: 10%">This
 				content is only shown to users.</div>
-			<div th:text="${message}" sec:authorize="isAuthenticated()"
+			<div  sec:authorize="isAuthenticated()"
 				style="padding-top: 10%"></div>
 				
 				

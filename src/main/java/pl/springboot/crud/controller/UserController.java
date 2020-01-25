@@ -1,17 +1,29 @@
 package pl.springboot.crud.controller;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import lombok.AllArgsConstructor;
 
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import pl.springboot.crud.model.User;
+import pl.springboot.crud.repository.UserRepository;
 import pl.springboot.crud.services.UserService;
 
 @Controller
+@AllArgsConstructor
 public class UserController {
 	
-	@Autowired
+	private UserRepository userRepository;
 	private UserService userService;
-	@Autowired
-	private ModelMapper mapper;
-	
+
+	@PostMapping("/")
+	@Secured("user_role")
+	public String start(@ModelAttribute("loginForm") User loginForm,
+			Model model) {
+		model.addAttribute("role", userRepository.findByUsernameFetchRoles(loginForm.getUsername()).getAuthorities());
+		return "redirect:/";
+	}
 }
