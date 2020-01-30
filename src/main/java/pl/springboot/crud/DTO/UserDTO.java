@@ -1,7 +1,10 @@
 package pl.springboot.crud.DTO;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.Size;
 
+import pl.springboot.crud.validation.annotation.SamePassword;
 import pl.springboot.crud.validation.annotation.UniqueEmail;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,14 +15,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
-public class UserDTO {
-
+//@SamePassword
+public class UserDTO implements Serializable {
+	
+	private static final long serialVersionUID = 1424453515682865483L;
 	private String userName;
 	@UniqueEmail
 	private String email;
 	private String confirmEmail;
-	@Size(min=4)
 	private String password;
 	private String confirmPassword;
 	

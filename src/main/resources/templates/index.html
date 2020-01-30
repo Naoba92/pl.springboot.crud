@@ -21,16 +21,22 @@
 			<div th:replace="fragments/_header :: _header"></div>
 
 
-			<div sec:authorize="hasAuthority('admin_role')" style="padding-top: 10%">This
-				content is only shown to administrators.</div>
+			<div sec:authorize="hasAuthority('admin_role')"
+				style="padding-top: 10%">This content is only shown to
+				administrators.</div>
 
-			<div sec:authorize="hasAuthority('user_role')" style="padding-top: 10%">This
-				content is only shown to users.</div>
-			<div  sec:authorize="isAuthenticated()"
-				style="padding-top: 10%"></div>
-				
-				
-				<div th:replace="fragments/footer :: footer"></div>
+			<div sec:authorize="hasAuthority('user_role')"
+				style="padding-top: 10%">This content is only shown to users.</div>
+			<div sec:authorize="isAuthenticated()" style="padding-top: 10%"></div>
+			<div th:if="${param.logout != null}" class="alert alert-success">
+				<p>Zostałeś wylogowany.</p>
+			</div>
+			<div th:if="${param.errorLogin != null}" class="alert alert-danger">
+				<p>Niepoprawne dane do logowania.</p>
+			</div>
+
+
+			<div th:replace="fragments/footer :: footer"></div>
 		</div>
 
 	</div>
