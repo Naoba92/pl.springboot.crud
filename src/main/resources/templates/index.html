@@ -12,6 +12,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/modal.js"></script>
+<script type="text/javascript" src="/js/smoothScroll.js"></script>
 <title>Welcome</title>
 </head>
 <body>
@@ -31,9 +32,7 @@
 			<div th:if="${param.logout != null}" class="alert alert-success">
 				<p>Zostałeś wylogowany.</p>
 			</div>
-			<div th:if="${param.errorLogin != null}" class="alert alert-danger">
-				<p>Niepoprawne dane do logowania.</p>
-			</div>
+			
 
 
 			<div th:replace="fragments/footer :: footer"></div>
