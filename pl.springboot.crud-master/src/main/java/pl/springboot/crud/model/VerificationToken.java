@@ -15,11 +15,9 @@ import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class VerificationToken {
     private static final int EXPIRATION = 60 * 24;
@@ -42,14 +40,5 @@ public class VerificationToken {
         cal.add(Calendar.MINUTE, expiryTimeInMinutes);
         return new Date(cal.getTime().getTime());
     }
-
-	public VerificationToken(String token, User user) {
-		super();
-		this.token = token;
-		this.user = user;
-		this.expiryDate = calculateExpiryDate(EXPIRATION);
-	}
-
-	
     
 }
