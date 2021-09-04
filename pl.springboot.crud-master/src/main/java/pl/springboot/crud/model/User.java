@@ -3,6 +3,7 @@ package pl.springboot.crud.model;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,6 +23,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 
 
 @NoArgsConstructor
@@ -44,6 +46,7 @@ public class User implements UserDetails{
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "USER_ROLES", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
 	private Set<UserRole> role;
+	protected Boolean enabled;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return role;
@@ -70,6 +73,6 @@ public class User implements UserDetails{
 	}
 	@Override
 	public boolean isEnabled() {
-		return Boolean.TRUE;
+		return enabled;
 	}
 }
