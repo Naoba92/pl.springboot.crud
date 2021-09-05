@@ -148,17 +148,14 @@
 				</form>
 			</div>
 		</nav>
-		<div th:if="${param.errorLogin != null}" class="alert alert-danger">
-				<p>Niepoprawne dane do logowania, bądź użytkownik nie istnieje.</p>
-			</div>
 			<div th:if="${param.logout != null}" class="alert alert-success">
 				<p>Zostałeś wylogowany.</p>
 			</div>
 			<div th:if="${message != null}" class="alert alert-danger">
 				<p th:text="${message}"></p>
 			</div>
-			<div th:if="${messageSuccess != null}" class="alert alert-success">
-				<p th:text="${messageSuccess}"></p>
+			<div th:if="${regSucc != null}" class="alert alert-success">
+				<p th:text="${regSucc}"></p>
 			</div>
 	</div>
 </body>
