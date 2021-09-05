@@ -3,8 +3,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="UTF-8" />
-<link href="../static/css/loginForm.css" th:href="@{/css/loginForm.css}"
-	rel="stylesheet" media="screen" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="../static/css/bootstrap.min.css"
 	th:href="@{/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
 <script
@@ -16,30 +15,10 @@
 <title>Welcome</title>
 </head>
 <body>
-	<div class="conteiner">
 		<div class="jumbotron text-center">
-
 			<div th:replace="fragments/_header :: _header"></div>
-
-
-			<div sec:authorize="hasAuthority('admin_role')"
-				style="padding-top: 10%">This content is only shown to
-				administrators.</div>
-
-			<div sec:authorize="hasAuthority('user_role')"
-				style="padding-top: 10%">This content is only shown to users.</div>
-			<div sec:authorize="isAuthenticated()" style="padding-top: 10%"></div>
-			<div th:if="${param.logout != null}" class="alert alert-success">
-				<p>Zostałeś wylogowany.</p>
-			</div>
-			
-
-
+			<div th:replace="fragments/content :: content"></div>
 			<div th:replace="fragments/footer :: footer"></div>
 		</div>
-
-	</div>
-
-
 </body>
 </html>

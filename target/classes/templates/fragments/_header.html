@@ -3,26 +3,18 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 	<div th:fragment="_header">
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-
 			<ol class="navbar-nav" style="width: 35%;">
 				<li class="nav-item"><a class="nav-link" th:href="@{#O-nas}">Nowości</a></li>
-				<li class="nav-item"><a class="nav-link" th:href="@{#Uslugi}">O
-						nas</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{#Uslugi}">O nas</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{#Oferta}">Oferta</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{#Kontakt}">Kontakt</a></li>
-
-			</ol>
-			<form class="form-inline" action="/action_page.php"
-				style="margin-left: 5%; width: 30%;">
-				<input class="form-control mr-sm-2" type="text" placeholder="Search"></input>
-				<button class="btn btn-success" type="submit" style="width: 30%;">Search</button>
-			</form>
-			<ol class="navbar-nav" style="position: relative; left: 50px;">
-
+			</ol>	
+			<ol class="navbar-nav" style="margin:auto;">
 				<!-- Authenticed -->
 				<li class="nav-item">
 					<div sec:authorize="isAuthenticated()">
@@ -32,197 +24,139 @@
 				<li>&nbsp;</li>
 				<li class="nav-item">
 					<div sec:authorize="isAuthenticated()">
-						<button type="button" class="btn btn-success"
-							onclick="$('#logoutForm').submit();">Wyloguj</button>
+						<button type="button" class="btn btn-success" onclick="$('#logoutForm').submit();">Wyloguj</button>
 					</div>
 				</li>
 				<li>&nbsp;</li>
 				<li class="nav-item">
 					<div sec:authorize="hasAuthority('admin_role')">
-						<button type="button" class="btn btn-success">Panel
-							administratora</button>
+						<button type="button" class="btn btn-success">Panel administratora</button>
 					</div>
 				</li>
 				<!--NOT Authenticed -->
-				<li class="nav-item"><div sec:authorize="!isAuthenticated()">
-						<button type="button" class="btn btn-success"
-							onclick="document.getElementById('id01').style.display='block'"
-							style="width: auto;">Login</button>
-					</div></li>
+				<li class="nav-item">
+					<div sec:authorize="!isAuthenticated()">
+						<button type="button" class="btn btn-success" onclick="document.getElementById('id01').style.display='block'" style="width: auto;">Login</button>
+					</div>
+				</li>
 				<li>&nbsp;</li>
-				<li class="nav-item"><div sec:authorize="!isAuthenticated()">
-						<button type="button" class="btn btn-success"
-							onclick="document.getElementById('id02').style.display='block'"
-							style="width: auto;">Rejestracja</button>
-					</div></li>
+				<li class="nav-item">
+					<div sec:authorize="!isAuthenticated()">
+						<button type="button" class="btn btn-success" onclick="document.getElementById('id02').style.display='block'" style="width: auto;">Rejestracja</button>
+					</div>
+				</li>
 			</ol>
-
+			<form class="form-inline" action="/action_page.php">
+				<input class="form-control mr-sm-2" type="text" placeholder="Wpisz czego szukasz"></input>
+				<button class="btn btn-success" type="submit">Szukaj</button>
+			</form>
 			<!-- Logout -->
 			<form th:action="@{/logout}" method="post" id="logoutForm">
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
 			</form>
 			<!-- Regestration -->
-			<div id="id02" class="modal"
-				style="margin: auto; padding: 0; overflow: auto;">
-
+			<div id="id02" class="modal">
 				<form class="modal-content animate" th:action="@{/new}"
-					th:object="${userForm}" style="margin: auto;" method="post">
+					th:object="${userForm}" style="margin: auto; width:50%; background: #DAFFAF;" method="post">
+					<fieldset>
 					<div class="imgcontainer">
-						<span
-							onclick="document.getElementById('id02').style.display='none'"
-							class="close" title="Close Modal">&times;</span>
+						<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
 					</div>
-					<div class="container" style="margin: auto; padding: 0;">
-						<h1>Register</h1>
-						<p>Please fill in this form to create an account.</p>
-						<hr>
-						<label for="userName"><b>Username</b></label> <input type="text"
-							placeholder="Enter userName" name="userName" required> <label
-							for="email"><b>Email</b></label> <input type="text"
-							placeholder="Enter Email" name="email" required> <label
-							for="confirmEmail"><b>Confirm Email</b></label> <input
-							type="text" placeholder="Confirm email" name="confirmEmail"
-							required> <label for="password"><b>Password</b></label> <input
-							type="password" placeholder="Enter Password" name="password"
-							required> <label for="ConfirmPsw"><b>Repeat
-								Password</b></label> <input type="password" placeholder="Repeat Password"
-							name="ConfirmPsw" required>
-						<hr>
-						<p>
-							By creating an account you agree to our <a href="#">Terms
-								Privacy</a>.
-						</p>
-
-						<button type="submit" class="registerbtn">Register</button>
+    					<div id="legend">
+      						<legend style="font-weight: bold;">Rejestracja</legend>
+    					</div>
+   					<div class="control-group">
+      				<!-- Username -->
+     					 <label class="control-label"  for="userName">Nazwa użytkownika</label>
+     					 <div class="controls">
+        				 	<input type="text" id="userName" name="userName" placeholder="Wprowadź nazwe" class="input-xlarge" required>
+        				 	<p class="help-block"></p>
+     				 	 </div>
+   					</div>
+    				<div class="control-group">
+      				<!-- E-mail -->
+      					<label class="control-label" for="email">E-mail</label>
+      					<div class="controls">
+        					<input type="text" id="email" name="email" placeholder="Wprowadź email" class="input-xlarge" required>
+        				    <p class="help-block"></p>
+     					 </div>
+    				</div>
+    				<div class="control-group">
+      				<!-- Password-->
+      					<label class="control-label" for="password">Hasło</label>
+      					<div class="controls">
+        					<input type="password" id="password" name="password" placeholder="Wprowadź hasło" class="input-xlarge" required>
+        					<p class="help-block"></p> 
+      					</div>
+    				</div>
+    				<div class="control-group">
+      				<!-- Password -->
+      					<label class="control-label"  for="confirmPassword">Hasło (Potwierdzenie)</label>
+      					<div class="controls">
+        					<input type="password" id="confirmPassword" name="confirmPassword" placeholder="Wprowadź ponownie hasło" class="input-xlarge" required>
+        					<p class="help-block"></p>
+      					</div>
+    				</div>
+    				<div class="control-group">
+      				<!-- Button -->
+      					<div class="controls">
+        					<button class="btn btn-success">Zarejestruj</button>
+      					</div>
+    				</div>
+					<div class="control-group">
+						<p style="text-align: right; font-weight: bold;">Masz już konto?</p>
+						<button style="float: right; font-weight: bold; cursor: pointer;" title="Close Modal" onclick="document.getElementById('id01').style.display='block' document.getElementById('id02').style.display='none'">Zaloguj się</button>
 					</div>
-
-					<div class="container signin">
-						<p>
-							Already have an account?
-							<button class="close" title="Close Modal"
-								onclick="document.getElementById('id01').style.display='block'
-							document.getElementById('id02').style.display='none'">Sign
-								in</button>
-						</p>
-					</div>
-				</form>
-
+					 </fieldset>
+				</form>	
 			</div>
-
-
-
 			<!--Login Form -->
-			<div id="id01" class="modal"
-				style="width: 80%; height: 98%; margin: auto; padding: 0;">
-				<form class="modal-content animate" th:action="@{/}"
-					th:object="${loginForm}" method="post">
+			<div id="id01" class="modal">
+				<form class="modal-content animate" th:action="@{/}" th:object="${loginForm}" style="margin: auto; width:50%; background: #DAFFAF;" method="post">
 					<div class="imgcontainer">
-						<span
-							onclick="document.getElementById('id01').style.display='none'"
-							style="width: auto;" class="close" title="Close Modal">&times;</span>
+						<span onclick="document.getElementById('id01').style.display='none'" style="width: auto;" class="close" title="Close Modal">&times;</span>
 					</div>
-
-					<div class="container">
-
-						<label for="userName"> <b>Username</b></label> <input type="text"
-							placeholder="Enter Username" id="userName" name="userName"
-							required> <label for="password"> <b>Password</b></label>
-						<input type="password" placeholder="Enter Password" id="password"
-							name="password" required>
-
-						<button type="submit">Login</button>
-						<label> <input type="checkbox" checked="checked"
-							name="remember"> Remember me
-						</label>
-
-					</div>
-
-					<div class="container" style="background-color: #f1f1f1">
-						<button type="button"
-							onclick="document.getElementById('id01').style.display='none'"
-							style="width: auto;" class="cancelbtn">Cancel</button>
-						<span class="password">Forgot <a href="#">password?</a></span>
+					<div id="legend">
+      						<legend style="font-weight: bold;">Logowanie</legend>
+    					</div>
+					<div class="control-group">
+      				<!-- Username -->
+     					 <label class="control-label"  for="userName">Nazwa użytkownika</label>
+     					 <div class="controls">
+        				 	<input type="text" id="userame" name="userName" placeholder="Wprowadź nazwe" class="input-xlarge" required>
+        				 	<p class="help-block"></p>
+     				 	 </div>
+   					</div>
+    				<div class="control-group">
+      				<!-- Password -->
+      					<label class="control-label" for="password">Hasło</label>
+      					<div class="controls">
+        					<input type="password" id="loginPassword" name="password" placeholder="Wprowadź hasło" class="input-xlarge" required>
+        				    <p class="help-block"></p>
+     					 </div>
+    				</div>
+    				<div class="control-group">
+      				<!-- Button -->
+      					<div class="controls">
+        					<button class="btn btn-success">Zaloguj</button>
+      					</div>
+    				</div>
+					<div class="control-group" >		
+						<span class="password"><a href="#">Odzywskiwanie hasła</a></span>
 					</div>
 				</form>
-
 			</div>
 		</nav>
-		<div th:if="${param.errorLogin != null}" class="alert alert-danger">
-				<p>Niepoprawne dane do logowania.</p>
+			<div th:if="${param.logout != null}" class="alert alert-success">
+				<p>Zostałeś wylogowany.</p>
 			</div>
-		<section class="section" id="O-nas">
-			<h2>O nas</h2>
-			<p>Firma istnieje od 1998 roku. Jesteśmy liderem na rynku
-				kodowania kluczy i awaryjnego otwierania samochodów.</p>
-			<p>Zajmujemy się: - awaryjnym otwieraniem aut - dorabianiem
-				kluczy samochodowych z immobilizerem ( również zgubione klucze), -
-				kodowaniem kart do Renault, dorabianiem kluczy do Mercedesa, klucze
-				zbliżeniowe. - kodowaniem i naprawą pilotów, - wyłączaniem systemu
-				immobilizera, - dogrywaniem sterowników, - elektroniką samochodową z
-				zakresu systemu immobilizera. - naprawą zamków i stacyjek</p>
-			<p>Otworzymy każdy zamek samochodowy bez jego uszkodzenia.
-				Dorobiamy klucze , nawet wówczas, gdy został zgubiony ostatni. Firma
-				pracuje na frezarkach sterowanych komputerowo, gwarantujących
-				fabryczne cięcia kluczy.</p>
-
-			<p>Posiadamy sprzęt pozwalający na programowanie lub kasowanie
-				kluczy.</p>
-
-
-			<p>Służymy dobrą radą i doświadczeniem.</p>
-			Więcej można przeczytać w zakładce : <a href="#Oferta"> Oferta<img
-				src="" alt="" /></a>.
-			<div class="imgBottom">
-				<img src="" alt="" />
+			<div th:if="${message != null}" class="alert alert-danger">
+				<p th:text="${message}"></p>
 			</div>
-
-		</section>
-		<section class="section" id="Uslugi">
-		<div class="container">
-			<h2>Usługi</h2>
-			<h3>Programowanie kluczy</h3><img src="" alt="" />
-			<p>Większość naszych aut jak  również obecnie i motorów jest wyposażona w system immobilizera.</p>
-			<p>Uwaga i dobra rada dla ciekawskich pragnących sprawdzić co znajduje się w środku kluczyka – bywa ,że to coś czyli transponder  przy otwarciu klucza zginie. Jeśli go nie znajdziesz my jesteśmy w stanie zaprogramować nowy nawet do najnowszych modeli aut, motorów, skuterów.</p>
-			<p>Posiadamy sprzęt pozwalający przywrócić zawartość transpondera  tak, aby wasz pojazd odjechał. Na specjalne p3
-			życzenie naszych klientów, jeśli jest to możliwe wyłączamy system immobilizera.</p>
-			<p>Programujemy i wymazujemy z pamięci komputera klucze i piloty np. po zagubieniu lub skradzeniu jednego kompletu.</p>
-			<p>BEZPŁATNA FACHOWA PORADA I WYCENA</p>
-				
-			<h3>Programowanie pilotów</h3><img src="" alt=""/>
-				<p>NAPRAWY I KODOWANIE PILOTÓW SAMOCHODOWYCH</p>
-					<p>Wasze autko nie chce się otworzyć ani zamknąć przy pomocy pilota.</p>
-					<p>Zwróć się do Nas .</p>
-					<p>Często zdarza się, ze pilot rozkodowuje się po wymianie baterii lub nie działa z innych przyczyn.
-					My je ustalimy i usuniemy usterkę tak, aby z powrotem działała funkcja luksusu i drzwi nie trzeba było otwierać przy pomocy mechanicznego klucza.</p>
-					<h3>Naprawa zamków i stacyjek</h3><img src="" alt=""/>
-				<p>Twój kluczyk przestał działać w zamku lub stacyjce lub masz dwa klucze ( jeden do drzwi, a drugi do stacyjki).</p>
-				<p>Możemy dokonać naprawy, aby  ten sam kluczyk mógł być używany  do stacyjki i do drzwi.</p>
-					<p>Złamałeś kluczyk w stacyjce – przyjedziemy.</p>
-					<p>Naprawiamy i regenerujemy  zamki po próbie włamania.</p>
-		</div>
-	</section>
-		<section  id="Oferta">
-		<div class="container">
-			<h2>Oferta</h2>
-			<ul>
-			<li class="oferta"><img class="oferta" src="" alt=""/><p>Awaryjne otwieranie</p></li>
-			<li class="oferta"><img class="oferta" src="" alt=""/><p>Klucze do Mercedesa</p></li>
-			<li class="oferta"><img class="oferta" src="" alt=""/><p>Klucze do BMW</p></li>
-			<li class="oferta"><img class="oferta" src="" alt=""/><p>Karty Renault</p></li>
-			</ul>
+			<div th:if="${regSucc != null}" class="alert alert-success">
+				<p th:text="${regSucc}"></p>
 			</div>
-	</section>
-	<section class="section" id="Kontakt">
-		<div class="container">
-			<h2>Kontakt</h2>
-			<p>Jesteśmy umiejscowieni pod adresem : Aleja Wojska Polskiego 52A Pruszków pomiędzy drogerią Rossman a papierniczym</p>
-			<iframe id="frame" src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1223.950653942778!2d20.793123788360603!3d52.15430450735779!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spl!2spl!4v1498114280473"
-			width="600" height="450"  style="border:0" allowfullscreen></iframe>
-			<br>
-			<p>Numer kontaktowy: 533-103-103 Adres e-mail: kluczyki1@wp.pl </p>
-		</div>
-	</section>
 	</div>
 </body>
 </html>

@@ -14,17 +14,16 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import pl.springboot.crud.validation.annotation.UniqueEmail;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 
 
 @NoArgsConstructor
@@ -47,6 +46,7 @@ public class User implements UserDetails{
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "USER_ROLES", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
 	private Set<UserRole> role;
+	protected Boolean enabled;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return role;
@@ -73,6 +73,6 @@ public class User implements UserDetails{
 	}
 	@Override
 	public boolean isEnabled() {
-		return Boolean.TRUE;
+		return enabled;
 	}
 }

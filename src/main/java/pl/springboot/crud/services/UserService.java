@@ -1,13 +1,21 @@
 package pl.springboot.crud.services;
 
-import java.util.List;
+import org.springframework.web.context.request.WebRequest;
 
 import pl.springboot.crud.DTO.UserDTO;
+import pl.springboot.crud.exception.UserAlreadyExistException;
 import pl.springboot.crud.model.User;
+import pl.springboot.crud.model.VerificationToken;
 
 
 public interface UserService {
-	User save(UserDTO newUser);
-	List<User> findAll();
-	User findByEmail(String email);
+	User registerNewUser(UserDTO newUser, WebRequest request) throws UserAlreadyExistException;
+	
+	User getUser(String verificationToken);
+
+    void saveRegisteredUser(User user);
+
+    void createVerificationToken(User user, String token);
+
+    VerificationToken getVerificationToken(String VerificationToken);
 }

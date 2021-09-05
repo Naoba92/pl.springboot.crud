@@ -1,12 +1,7 @@
 package pl.springboot.crud.service.impl;
 
-import java.util.Collection;
-
-
 import lombok.AllArgsConstructor;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,13 +18,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		return userRepository.findByUsernameFetchRoles(userName);
+		if(userRepository.findByUsernameFetchRoles(userName) == null){
+			throw new UsernameNotFoundException("Not Found");
+		}
+		if(userRepository.findByUsernameFetchRoles(userName).isEnabled()){
+			return userRepository.findByUsernameFetchRoles(userName);	
+		}
+		return null;
 	}
 	
 
-
-	private static Collection<? extends GrantedAuthority> getAuthorities(User user) {
-        String[] userRoles = user.getRole().stream().map((role) -> role.getAuthority()).toArray(String[]::new);
-        Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(userRoles);
-        return authorities;
-}}
+//
+//	private static Collection<? extends GrantedAuthority> getAuthorities(User user) {
+//        String[] userRoles = user.getRole().stream().map((role) -> role.getAuthority()).toArray(String[]::new);
+//        Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(userRoles);
+//        return authorities;
+//}
+	}
