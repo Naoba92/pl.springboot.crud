@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import lombok.AllArgsConstructor;
 
+import org.springframework.context.MessageSource;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,17 +13,19 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.context.request.WebRequest;
 
 @Controller
 @AllArgsConstructor
 public class LoginController {
 
+	private MessageSource messages;
 	
 	@GetMapping("/")
-	public String login(Model model, @Param ("errorLogin") boolean errorLogin) {
-		
+	public String login(Model model, @Param ("errorLogin") boolean errorLogin, WebRequest request) {
+		String message = messages.getMessage("message.badCredentials", null, request.getLocale());
 		if(errorLogin){
-			model.addAttribute("message", "Niepoprawne danego logowania lub użytkownik nie istnieje!!");
+			model.addAttribute("message", message);
 		}
 		return "index";
 	}
