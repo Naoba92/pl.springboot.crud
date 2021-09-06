@@ -1,5 +1,6 @@
 package pl.springboot.crud.services;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
 
 import pl.springboot.crud.DTO.UserDTO;
@@ -7,7 +8,7 @@ import pl.springboot.crud.exception.UserAlreadyExistException;
 import pl.springboot.crud.model.User;
 import pl.springboot.crud.model.VerificationToken;
 
-
+@Service
 public interface UserService {
 	User registerNewUser(UserDTO newUser, WebRequest request) throws UserAlreadyExistException;
 	

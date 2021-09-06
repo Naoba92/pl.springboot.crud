@@ -1,6 +1,10 @@
 package pl.springboot.crud.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,10 +18,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 public class Product {
-
-	private static final long serialVersionUID = 151553012019225417L;
-	private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@NotNull
 	private String name;
+	@NotNull
 	private String category;
+	@NotNull
 	private double price;
 }
