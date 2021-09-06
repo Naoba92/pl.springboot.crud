@@ -23,16 +23,22 @@
 				</li>
 				<li>&nbsp;</li>
 				<li class="nav-item">
-					<div sec:authorize="isAuthenticated()">
-						<button type="button" class="btn btn-success" onclick="$('#logoutForm').submit();">Wyloguj</button>
-					</div>
-				</li>
-				<li>&nbsp;</li>
-				<li class="nav-item">
 					<div sec:authorize="hasAuthority('admin_role')">
 						<button type="button" class="btn btn-success">Panel administratora</button>
 					</div>
 				</li>
+				<li>&nbsp;</li>
+				<li class="nav-item">
+					<div sec:authorize="isAuthenticated()">
+						<button type="button" class="btn btn-success">Moje dane</button>
+					</div>
+				</li>
+				<li>&nbsp;</li>
+				<li class="nav-item">
+					<div sec:authorize="isAuthenticated()">
+						<button type="button" class="btn btn-success" onclick="$('#logoutForm').submit();">Wyloguj</button>
+					</div>
+				</li>				
 				<!--NOT Authenticed -->
 				<li class="nav-item">
 					<div sec:authorize="!isAuthenticated()">

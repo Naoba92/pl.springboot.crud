@@ -1,5 +1,6 @@
 package pl.springboot.crud.controller;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,8 +24,8 @@ public class LoginController {
 	
 	@GetMapping("/")
 	public String login(Model model, @Param ("errorLogin") boolean errorLogin, WebRequest request) {
-		String message = messages.getMessage("message.badCredentials", null, request.getLocale());
 		if(errorLogin){
+			String message = messages.getMessage("message.badCredentials", null, request.getLocale());
 			model.addAttribute("message", message);
 		}
 		return "index";
